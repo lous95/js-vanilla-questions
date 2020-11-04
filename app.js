@@ -31,13 +31,13 @@ window.onload = function () {
         titleOfQuestion.appendChild(buttonOfQuestion);
 
         var plusButton = document.createElement('span');
-       
+
         plusButton.classList.add('plus-icon');
         plusButton.innerHTML = '<i class="far fa-plus-square" id="expand"></i>';
         buttonOfQuestion.appendChild(plusButton);
 
         var minusButton = document.createElement('span');
-       
+
         minusButton.classList.add('minus-icon');
         minusButton.innerHTML = '<i class="far fa-minus-square" id="collapse"></i>'
         buttonOfQuestion.appendChild(minusButton);
@@ -61,67 +61,54 @@ window.onload = function () {
 
 
         buttonOfQuestion.addEventListener('click', function (e) {
-            console.log(e);
-        
-            console.log(e.target.id);
-            const button = e.currentTarget;
-            const article = button.parentElement.parentElement;
-            const articleHiddenId = article.childNodes[0].value;
-            if (articleHiddenId % 2 == 0) {
-                myQuestion.forEach(function (n) {
-                    if (n.id % 2 == 0) {
-                        n.showText = true;
-                    }
-                })
-            }
-            else {
-                myQuestion.forEach(function (n) {
-                    if (n.id % 2 == 1) {
-                        n.showText = true;
-                    }
-                })
-            }
 
-            
             var articles = document.querySelectorAll('.question');
-            myQuestion.forEach(function(question){
-                if(question.showText == true){
-                  
-                    articles.forEach(function(article){
-                        if(article.childNodes[0].value == question.id){
-                            article.classList.toggle("show-text")
+            const Clickedbutton = e.currentTarget;
+            const articleOfClickButton = Clickedbutton.parentElement.parentElement;
+            const theHiddenIdOfTheArticle = articleOfClickButton.childNodes[0].value;
+            
+            (function expandQuestions(){
+            if (e.target.id === "expand") {
+                if (theHiddenIdOfTheArticle % 2 == 0) {
+                    articles.forEach(function (article) {
+                        if (article.childNodes[0].value % 2 == 0) {
+                            article.classList.toggle("show-text");
+                        }
+                        else{
+                            article.classList.remove("show-text");
+                        }
+                    })
+                }
+                else {
+                    articles.forEach(function (article) {
+                        if (article.childNodes[0].value % 2 == 1) {
+                            article.classList.toggle("show-text");
+                        }
+                        else{
+                            article.classList.remove("show-text");
                         }
                     })
 
-
                 }
-            })
-            
-            // myQuestion.forEach(function (n) {
-            //     $(document).ready(function () {
-            //         var articles = $('article');
-            //         if (n.showText === true) {
-
-            //             console.log(n);
-            //             for (let index = 0; index < articles.index; index++) {
-            //                 console.log(articles[0]);
-            //                 // if (articles[index].children[0].value == n.id) {
-            //                 //     articles[index].classList.toggle('show-text');
-            //                 // }
-            //             }
-            //         }
-            //     })
-        
-            // })
-        })
-
-        myQuestion.forEach(function(resetQuestion){
-            resetQuestion.showText = false;
-        })
-
-
-
-        
+            }
+            if (e.target.id === "collapse") {
+                if (theHiddenIdOfTheArticle % 2 == 0) {
+                    articles.forEach(function (article) {
+                        if (article.childNodes[0].value % 2 == 0) {
+                            article.classList.remove("show-text");
+                        }
+                    })
+                }
+                else {
+                    articles.forEach(function (article) {
+                        if (article.childNodes[0].value % 2 == 1) {
+                            article.classList.remove("show-text");
+                        }
+                    })
+                }
+            }
+            })();
+        }) 
 
     });
 }
